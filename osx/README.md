@@ -30,8 +30,8 @@ And just for the record, the soundflowerbed config should have both the 2ch and 
 * Add the device "Soundflower (2ch)"
 * Master Device: "Built-In Output"
 * Sample-Rate: "44100,0 Hz"
-* [NO] Drift Correction for "Soundflower (2ch)"
-* [YES] Drift Correction for "Built-In Output"
+* [YES] Drift Correction for "Soundflower (2ch)"
+* [NO] Drift Correction for "Built-In Output"
 
 
 
