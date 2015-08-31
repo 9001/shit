@@ -1,0 +1,58 @@
+#   ALSA improvements for Debian Wheezy
+#   2014-05-03,  ed <irc.rizon.net>
+#
+#   This does the following:
+#     - Sets HDMI output as default
+#     - Adds dmixer (multiple sources)
+#     - Adds softvol (volume control)
+#
+#   Use aplay to find required device IDs:
+#   $ aplay -l
+#     - card 0: PCH [HDA Intel PCH], device 0: ALC269VC Analog [ALC269VC Analog]
+#     - card 0: PCH [HDA Intel PCH], device 3: HDMI 0 [HDMI 0]
+#
+#   Save this to your .asoundrc then restart alsa:
+#   # nano /home/ed/.asoundrc; service alsa-utils restart
+#
+#   Finally, to set the volume:
+#   $ amixer set fgsfds 50
+#
+pcm.!default {
+	type hw
+	card 0
+	device 0
+	device 3
+}
+pcm.!default {
+	type plug
+	slave.pcm "svol"
+}
+pcm.!svol {
+	type softvol
+	slave.pcm "dmixer"
+	control.name "fgsfds"
+	control.card 0
+}
+ctl.!svol {
+	type hw
+	card 0
+}
+pcm.!dmixer {
+	type dmix
+	ipc_key 1024
+	slave {
+		pcm "hw:0,3"
+		period_time 0
+		period_size 1024
+		buffer_size 4096
+		rate 44100
+	}
+	bindings {
+		0 0
+		1 1
+	}
+}
+ctl.!dmixer {
+	type hw
+	card 0
+}
