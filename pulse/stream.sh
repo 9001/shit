@@ -102,6 +102,7 @@ pactl load-module module-loopback source="$monrec" sink="$(
 
 # start the tag monitor
 ./metaman.sh >/dev/null &
+chmod 644 "$1"
 
 # debug output
 echo
