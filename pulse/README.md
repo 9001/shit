@@ -76,8 +76,8 @@ Adjusting your volume
 
 
 
-***************
-# ingredients
+ingredients
+===========
 
 | filename        | purpose                                       |
 |-----------------|-----------------------------------------------|
@@ -89,3 +89,17 @@ Adjusting your volume
 | volume.sh       | Sets media player volume, used by mic.sh      |
 | meta.sh         | Tag retriever, used by metaman.sh             |
 | head            | Wave header so lame stops being a bitch       |
+
+
+
+Troubleshooting
+===============
+
+### Microphone sounds like a broken robot
+
+Try editing `mic.sh` and replace all four `--latency-msec=1` with `--latency-msec=500`  
+on lines 34, 35, 42 and 57. if it helps, try lower numbers to see how low you can go
+
+### Music slows down or jitters when turning mic on/off
+
+Edit `volume.sh` and replace `-gt 2` with `-gt 20` on line 35
