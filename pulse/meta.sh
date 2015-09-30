@@ -40,10 +40,6 @@ function dec()
 	[ $? -eq 0 ] &&
 		printf "%s" "$sjis" ||
 		printf "%s" "$orig"
-	
-	# for some reason printf goes "write error: Broken pipe" when
-	# theres an \n at the end and i really dont want to know why
-	echo 2>/dev/null || true
 }
 
 # get artist or title (first argument to function)
