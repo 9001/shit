@@ -21,6 +21,11 @@
 #   Target Samplerate: 44100
 #   Quality / Algorithm: SINC_BEST_QUALITY
 #
+# DeaDBeeF: Edit -> Preferences -> GUI/Misc
+#   [ ] Enable Japanese SHIFT-JIS detection and recoding
+#   [ ] Enable Russian CP1251 detection and recoding
+#   [ ] Enable Chinese CP936 detection and recoding
+#
 
 [ $# -lt 1 ] && {
 	echo "Usage: ./stream yourConfigFile"
@@ -132,7 +137,8 @@ lame --preset cbr $bitrage -q 0 -m j - - |
 tee live-$fn.mp3 |
 
 # stream to radio
-ezstream -c "$1"
+stdbuf -oL ezstream -c "$1" |
+grep -vE '^ezstream: Warning: Empty metadata string'
 
 # stream ended, probably a network issue
 mpv down.flac
