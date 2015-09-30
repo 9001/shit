@@ -40,6 +40,8 @@ function dec()
 	[ $? -eq 0 ] &&
 		printf "%s" "$sjis" ||
 		printf "%s" "$orig"
+	
+	[ -z "$orig" ] && echo 2>/dev/null
 }
 
 # get artist or title (first argument to function)
