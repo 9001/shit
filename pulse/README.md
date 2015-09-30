@@ -11,6 +11,7 @@ Supported media players
 =======================
 
 * DeaDBeeF (with tags)
+* Clementine (with tags)
 * anything that uses PulseAudio (without tags)
 
 get tags from other players by editing `meta.sh`  
@@ -26,10 +27,9 @@ Dependencies
 
 
 
-First-time setup
-================
+First-time setup for DeaDBeeF users
+===================================
 
-* edit the path to deadbeef in `meta.sh`
 * edit `yourConfigFile` with stream details (user/pass)
 * recommended deadbeef config:
 ```
@@ -42,7 +42,19 @@ Edit -> Preferences -> Sound
 Edit -> Preferences -> DSP -> Resampler -> Configure
     Target Samplerate:    44100
     Quality / Algorithm:  SINC_BEST_QUALITY
+
+Edit -> Preferences -> GUI/Misc
+    [ ] Enable Russian CP1251 detection and recoding
 ```
+<sup>(disable all "detection and recoding" stuff as it'll cock up unicode tags, meaning stuff that isn't english)</sup>
+
+
+
+First-time setup for Clementine users
+=====================================
+
+* edit `yourConfigFile` with stream details (user/pass)
+* idk probably more stuff
 
 
 
