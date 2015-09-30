@@ -22,8 +22,8 @@ is_db=$(have deadbeef) ||
 is_cl=$(have clementine) ||
 {
 	[ "x$arg" == "xtitle" ] &&
-		echo 'media player 404' ||
-		echo ''
+		echo -n 'media player 404' ||
+		echo -n 'ayy'
 	
 	exit 0
 }
@@ -38,8 +38,8 @@ function dec()
 	
 	# decode ok? if yes, keep it
 	[ $? -eq 0 ] &&
-		IFS= printf -- "${sjis/\\/\\\\}" ||
-		IFS= printf -- "${orig/\\/\\\\}"
+		printf "%s" "$sjis" ||
+		printf "%s" "$orig"
 	
 	# for some reason printf goes "write error: Broken pipe" when
 	# theres an \n at the end and i really dont want to know why
