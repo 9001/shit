@@ -5,28 +5,83 @@
 # BSD-Licensed, 2015-08-31, ed <irc.rizon.net>
 # https://github.com/9001/shit
 #
-# edit the path below
-DEADBEEF='/home/ed/bin/deadbeef/deadbeef'
 
 set -o pipefail
-function get()
+user=$(id -un)
+arg="$1"
+
+# checks if a media player is running
+function have()
 {
-	type='a'
-	[ "x$1" == "xt" ] && type=t
+	pgrep -ou $user "$1" 2>/dev/null
+}
+
+# check if there's a supported media player running,
+# and store its pid in the var for black magic later
+is_db=$(have deadbeef) ||
+is_cl=$(have clementine) ||
+{
+	[ "x$arg" == "xtitle" ] &&
+		echo 'media player 404' ||
+		echo ''
 	
-	# read tag from deadbeef
-	orig="$("$DEADBEEF" --nowplaying %$type 2>/dev/null)"
+	exit 0
+}
+
+# fix corrupted text
+function dec()
+{
+	orig="$(cat)"
 	
 	# try to decode weeaboo shit
 	sjis="$(IFS= echo "$orig" | iconv -t latin1 2>/dev/null | iconv -f sjis 2>/dev/null)"
 	
 	# decode ok? if yes, keep it
 	[ $? -eq 0 ] &&
-		IFS= echo -n "$sjis" ||
-		IFS= echo -n "$orig"
+		IFS= printf -- "${sjis/\\/\\\\}" ||
+		IFS= printf -- "${orig/\\/\\\\}"
+	
+	# for some reason printf goes "write error: Broken pipe" when
+	# theres an \n at the end and i really dont want to know why
+	echo 2>/dev/null || true
 }
 
-# broilerplate
-[ -z "$1" ] && echo "no data"
-[ "x$1" = "xartist" ] && get a
-[ "x$1" = "xtitle" ] && get t
+# get artist or title (first argument to function)
+function get()
+{
+	# check if we deadbeef
+	[ $is_db ] &&
+	{
+		[ "x$1" == "xartist" ] &&
+			type=a ||
+			type=t
+		
+		"/proc/$is_db/exe" --nowplaying %$type 2>/dev/null |
+			dec
+		
+		true
+	} ||
+	
+	# check if we clementine
+	[ $is_cl ] &&
+	{
+		[ "x$1" == "xartist" ] &&
+			mask='^artist: ' ||
+			mask='^title: '
+		
+		qdbus org.mpris.clementine /Player \
+		org.freedesktop.MediaPlayer.GetMetadata 2>/dev/null |
+			grep -E "$mask" |
+			head -n 1 |
+			sed 's/^[^:]*: //' |
+			dec
+		
+		true
+	}
+}
+
+#echo "$(date +%s.%N) start $1" >> /dev/shm/meta.log; sleep 1
+
+[ -z "$1" ] && echo "no data" || get "$1"
+
+#echo "$(date +%s.%N) end   $1" >> /dev/shm/meta.log
