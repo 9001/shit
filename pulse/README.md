@@ -23,7 +23,9 @@ Dependencies
 ============
 
 * `sudo apt-get install sox lame ezstream pavucontrol mpv`
-* http://deadbeef.sourceforge.net/download.html
+* option 1: http://deadbeef.sourceforge.net/download.html
+* option 2: `sudo apt-get install clementine`
+* option 3: no tags unless you roll up your sleeves
 
 
 
@@ -54,6 +56,7 @@ First-time setup for Clementine users
 =====================================
 
 * edit `yourConfigFile` with stream details (user/pass)
+* turn volume up full blast (why is it 50% by default)
 * idk probably more stuff
 
 
@@ -62,7 +65,7 @@ Starting your stream
 ====================
 
 See stremdeks.png if confused
-* play some music in deadbeef
+* play some music in whatever media player or browser
 * open a terminal and `./stream.sh yourConfigFile`
 * in the volume control panel that popped up,  
 change your media players audio output to `Send_to_Radio` 
@@ -77,6 +80,8 @@ Your microphone on the air
 * Press ENTER to mute it again
 
 This fades down the music volume to 20% and slides it back up when disengaging
+
+See troubleshooting below if this sounds like shit (heh)
 
 
 
