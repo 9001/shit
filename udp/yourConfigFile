@@ -1,0 +1,28 @@
+<!--
+	Change <sourcepassword> so it looks like
+		Your DJ Name | Your Password
+	
+	So for example something like
+		eggmun|420blazeit
+	
+	Unless you're not a r/a/dio guy,
+	in which case you'll have fun changing everything
+-->
+
+<ezstream>
+    <url>http://become.stream.r-a-d.io:1337/main.mp3</url>
+    <sourcepassword>YourDJName|YourPassword</sourcepassword>
+    <format>MP3</format>
+    <filename>stdin</filename>
+    <stream_once>1</stream_once>
+    <metadata_progname>./meta.sh</metadata_progname>
+    <metadata_format>@a@ - @t@</metadata_format>
+    <svrinfoname>shellscript icecast tools</svrinfoname>
+    <svrinfourl>https://github.com/9001/shit</svrinfourl>
+    <svrinfogenre>Post-avant Jazzcore</svrinfogenre>
+    <svrinfodescription>Someone didn't change their description</svrinfodescription>
+    <svrinfobitrate>192</svrinfobitrate>
+    <svrinfochannels>2</svrinfochannels>
+    <svrinfosamplerate>44100</svrinfosamplerate>
+    <svrinfopublic>0</svrinfopublic>
+</ezstream>
